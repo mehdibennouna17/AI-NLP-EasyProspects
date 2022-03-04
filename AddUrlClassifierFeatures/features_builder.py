@@ -16,7 +16,6 @@ def snippet_score(bing_result_dict):
 def dom_lev_score(bing_result_dict):
     t = time.time()
     score = 0
-    print("aa")
     score = utils.lev_score_url_with_txt(
         bing_result_dict['url'],
         bing_result_dict['nom_raison_sociale'])
