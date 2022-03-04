@@ -1,0 +1,1 @@
+EMAIL_VALIDATION_SECRET_ARN = "arn:aws:secretsmanager:eu-west-3:177285995440:secret:email_validation_key-Po8dBY"
