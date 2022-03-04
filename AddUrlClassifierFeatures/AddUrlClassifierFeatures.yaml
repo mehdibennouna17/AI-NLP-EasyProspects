@@ -1,0 +1,29 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: 'AWS::Serverless-2016-10-31'
+Description: An AWS Serverless Specification template describing your function.
+Resources:
+  AddUrlClassifierFeatures:
+    Type: 'AWS::Serverless::Function'
+    Properties:
+      Handler: lambda_function.lambda_handler
+      Runtime: python3.9
+      CodeUri: .
+      Description: ''
+      MemorySize: 512
+      Timeout: 30
+      Role: >-
+        arn:aws:iam::177285995440:role/service-role/AddUrlClassifierFeatures-role-q8ffu7rf
+      VpcConfig:
+        SecurityGroupIds:
+          - sg-0df651b6dd4c118a5
+        SubnetIds:
+          - subnet-0a405a91d6dbd29a1
+          - subnet-0d5681e46f4ed0716
+          - subnet-005af1fefad656d03
+      Tracing: Active
+      Layers:
+        - 'arn:aws:lambda:eu-west-3:177285995440:layer:Sklearn:1'
+        - 'arn:aws:lambda:eu-west-3:177285995440:layer:Getfeatures_others:10'
+        - 'arn:aws:lambda:eu-west-3:177285995440:layer:Pandas_Numpy:1'
+        - 'arn:aws:lambda:eu-west-3:177285995440:layer:Tldextract:1'
+        - 'arn:aws:lambda:eu-west-3:177285995440:layer:Requests:4'
