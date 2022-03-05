@@ -1,5 +1,5 @@
 <a href="">
-    <img src="./media/logo.png" alt="Easy Prospects logo" title="Easy Prospects" align="right" height="40" />
+    <img src="./Media/logo.png" alt="Easy Prospects logo" title="Easy Prospects" align="right" height="40" />
 </a>
 
 # Decentralized Company Register with AI/NLP
