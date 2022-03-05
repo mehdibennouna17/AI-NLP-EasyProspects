@@ -1,5 +1,5 @@
 
-![image info](./Media/logo.png)
+<div style="text-align:center"><img src="./Media/logo.png" /></div>
 
 # Decentralized Company Register with AI/NLP
 
