@@ -7,7 +7,7 @@ With many applications in B2B lead generation and B2B data enrichment, it provid
 
 
 
-[![Easy Prospects demo](./Media/website.jpg)]
+![Easy Prospects demo](./Media/website.jpg)]
 
 ## Table of content
 
