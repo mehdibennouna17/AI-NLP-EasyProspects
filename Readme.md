@@ -1,16 +1,13 @@
+# Decentralized French Companies Register with AI/NLP
 
-<div style="text-align:center"><img src="./Media/logo.png" /></div>
 
-# Decentralized Company Register with AI/NLP
+Easy Prospects is a CompanyToData API that returns publicly available data of a company. It takes as inputs the name of the company and a description of the activity in natural language and returns the website url and contact details (phone numbers, social networks urls) extracted from the website. 
 
-:star: Star us on GitHub — it motivates us a lot!
+With many applications in B2B lead generation and B2B data enrichment, it provides a fully decentralized company register without the need of updating / maintaining databases.
 
-[Aimeos](https://aimeos.org/TYPO3) is THE professional, full-featured and
-high performance e-commerce extension for TYPO3!  You can install it in your
-existing TYPO3 web site within 5 minutes and can adapt, extend, overwrite
-and customize anything to your needs.
 
-[![Aimeos TYPO3 demo](https://aimeos.org/fileadmin/user_upload/typo3-demo.jpg)](http://typo3.demo.aimeos.org/)
+
+[![Easy Prospects demo](./Media/website.jpg)]
 
 ## Table of content
 
