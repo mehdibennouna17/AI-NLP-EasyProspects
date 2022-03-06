@@ -135,6 +135,7 @@ meta_description_1 : Get your hot pizza in less than 1 minute
 
 meta_description_2 : Visit Roma next week-end
 
+
 ![Cosine similarity](./Media/cosinsim.jpg)
 
 The sentence embedding is computed simply by averaging the word embedding of each word weighted by TF-IDF with some minor text pre-processing.
