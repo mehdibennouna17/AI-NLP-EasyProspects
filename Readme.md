@@ -65,9 +65,9 @@ Official Bing Search API that returns search results for a specific `query` (jso
 ## Machine Learning Model
 ### Feature Engineering
 We build a 8 dimensions vector for each search result in order to feed a non-linear binary classifier. We need to build the vector with metrics related to both search result and company.
-* Feature#1 : search rank
-* Feature#2 : language (1 for french, 0 for any other language)
-* Feature#3 : inverse normalized Levenshtein distance (edit distance) between the search url and the name of the company
+* **Feature#1** : search rank
+* **Feature#2** : language (1 for french, 0 for any other language)
+* **Feature#3** : inverse normalized Levenshtein distance (edit distance) between the search url and the name of the company
 
 `AddUrlClassifierFeatures/utils.py`
 ```python
@@ -85,7 +85,7 @@ def lev_score_url_with_txt(url, txt):
         score = 1 - lev_dist/m # <= Feature#3
     return score
 ```
-* Feature#4 :  metric score related to the longest ngram in common in company name & url
+* **Feature#4** :  metric score related to the longest ngram in common in company name & url
 
 `AddUrlClassifierFeatures/features_builder.py`
 ```python
@@ -105,7 +105,7 @@ def max_rs_n_gram_matching_dom(bing_result_dict):
     score = (math.exp(max_n) - 1)*(1- math.exp(-n_rs)) # <= Feature#4
     return score
 ```
-* Feature#5 : metric score related to the longest substring in common in company name & url
+* **Feature#5** : metric score related to the longest substring in common in company name & url
 
 `AddUrlClassifierFeatures/features_builder.py`
 ```python
@@ -121,9 +121,9 @@ def max_len_string_match(bing_result_dict):
         score = 0
     return score
 ```
-* Feature#6 : binary check if the company base city is included in the url (1 if the city is a substring of the url, 0 else) 
-* Feature#7 : binary check if the company base department is included in the url (1 if the department number is a substring of the url, 0 else) 
-* Feature#8 : cosine similarity score between the activity description sentence embedding and the meta description of the search result website
+* **Feature#6** : binary check if the company base city is included in the url (1 if the city is a substring of the url, 0 else) 
+* **Feature#7** : binary check if the company base department is included in the url (1 if the department number is a substring of the url, 0 else) 
+* **Feature#8** : cosine similarity score between the activity description sentence embedding and the meta description of the search result website
 
 **Illustration :** 
 
