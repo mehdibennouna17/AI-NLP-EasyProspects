@@ -1,0 +1,64 @@
+<mxfile host="65bd71144e">
+    <diagram id="1IHpqXt0fLx4c60lM3Qe" name="Page-1">
+        <mxGraphModel dx="642" dy="680" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+            <root>
+                <mxCell id="0"/>
+                <mxCell id="1" parent="0"/>
+                <mxCell id="12" value="SIREN API" style="shape=step;perimeter=stepPerimeter;whiteSpace=wrap;html=1;fixedSize=1;size=10;direction=south;fillColor=#3399FF;strokeColor=none;rounded=0;" vertex="1" parent="1">
+                    <mxGeometry x="300" y="30" width="70" height="80" as="geometry"/>
+                </mxCell>
+                <mxCell id="13" value="BING API" style="shape=step;perimeter=stepPerimeter;whiteSpace=wrap;html=1;fixedSize=1;size=10;direction=south;fillColor=#3399FF;strokeColor=none;rounded=0;" vertex="1" parent="1">
+                    <mxGeometry x="300" y="104" width="70" height="80" as="geometry"/>
+                </mxCell>
+                <mxCell id="14" value="XGBoost Classifier" style="shape=step;perimeter=stepPerimeter;whiteSpace=wrap;html=1;fixedSize=1;size=10;direction=south;fillColor=#3399FF;strokeColor=none;rounded=0;" vertex="1" parent="1">
+                    <mxGeometry x="300" y="251" width="70" height="80" as="geometry"/>
+                </mxCell>
+                <mxCell id="15" value="Web Scraper" style="shape=step;perimeter=stepPerimeter;whiteSpace=wrap;html=1;fixedSize=1;size=10;direction=south;fillColor=#3399FF;strokeColor=none;rounded=0;" vertex="1" parent="1">
+                    <mxGeometry x="300" y="324" width="70" height="80" as="geometry"/>
+                </mxCell>
+                <mxCell id="17" value="&lt;font&gt;&lt;font&gt;&lt;b&gt;Collection of the input Data:&lt;/b&gt;&lt;br&gt;- Name of the company&lt;br&gt;- Description&lt;/font&gt;&lt;br&gt;&lt;/font&gt;" style="rounded=1;strokeColor=none;fillColor=#EEEEEE;align=center;arcSize=12;verticalAlign=top;whiteSpace=wrap;html=1;fontSize=12;fontColor=#000000;" vertex="1" parent="1">
+                    <mxGeometry x="377" y="32" width="220" height="70" as="geometry"/>
+                </mxCell>
+                <mxCell id="18" value="&lt;font&gt;&lt;b&gt;Collection of Bing Search Results&lt;/b&gt;&lt;br&gt;💡 After A/B testing of keywords, best results with name + city&lt;br&gt;&lt;/font&gt;" style="rounded=1;strokeColor=none;fillColor=#EEEEEE;align=center;arcSize=12;verticalAlign=top;whiteSpace=wrap;html=1;fontSize=12;fontColor=#000000;" vertex="1" parent="1">
+                    <mxGeometry x="377" y="105" width="220" height="70" as="geometry"/>
+                </mxCell>
+                <mxCell id="19" value="&lt;font&gt;&lt;b&gt;Company Website Identification&lt;/b&gt;&lt;br&gt;Binary classifier identifies the correct company website. &lt;br&gt;F1 score after tuning : 90.4 %&lt;br&gt;&lt;/font&gt;" style="rounded=1;strokeColor=none;fillColor=#EEEEEE;align=center;arcSize=12;verticalAlign=top;whiteSpace=wrap;html=1;fontSize=12;fontColor=#000000;" vertex="1" parent="1">
+                    <mxGeometry x="377" y="250" width="220" height="70" as="geometry"/>
+                </mxCell>
+                <mxCell id="20" value="&lt;font&gt;&lt;b&gt;Data extraction&lt;/b&gt;&lt;br&gt;Custom scraper and data cleaning to extract the phone numbers and social network urls from the corporate website&amp;nbsp;&lt;br&gt;&lt;/font&gt;" style="rounded=1;strokeColor=none;fillColor=#EEEEEE;align=center;arcSize=12;verticalAlign=top;whiteSpace=wrap;html=1;fontSize=12;fontColor=#000000;" vertex="1" parent="1">
+                    <mxGeometry x="377" y="323" width="220" height="70" as="geometry"/>
+                </mxCell>
+                <mxCell id="21" value="&lt;font&gt;&lt;b&gt;Full Company Data Register&lt;br&gt;Cloud native&lt;br&gt;Scalable&lt;br&gt;Low latency (depending on the website response time)&lt;/b&gt;&lt;br&gt;&lt;/font&gt;" style="rounded=1;strokeColor=none;fillColor=#EEEEEE;align=center;arcSize=12;verticalAlign=top;whiteSpace=wrap;html=1;fontSize=12;fontColor=#000000;" vertex="1" parent="1">
+                    <mxGeometry x="300" y="403" width="430" height="70" as="geometry"/>
+                </mxCell>
+                <mxCell id="22" value="Vector Rep." style="shape=step;perimeter=stepPerimeter;whiteSpace=wrap;html=1;fixedSize=1;size=10;direction=south;fillColor=#3399FF;strokeColor=#001DBC;rounded=0;fontColor=#ffffff;" vertex="1" parent="1">
+                    <mxGeometry x="300" y="177" width="70" height="80" as="geometry"/>
+                </mxCell>
+                <mxCell id="23" value="&lt;font&gt;&lt;b&gt;Feature Engineering with NLP&lt;/b&gt;&lt;br&gt;&amp;nbsp;Mapping each result to a feature vector representation with 33 dimensions including 6 customized ones&lt;br&gt;&lt;/font&gt;" style="rounded=1;align=center;arcSize=12;verticalAlign=top;whiteSpace=wrap;html=1;fontSize=12;fontColor=#000000;fillColor=#f5f5f5;strokeColor=#666666;" vertex="1" parent="1">
+                    <mxGeometry x="377" y="178" width="220" height="70" as="geometry"/>
+                </mxCell>
+                <mxCell id="25" value="&lt;font style=&quot;font-size: 12px;&quot;&gt;&lt;font style=&quot;font-size: 12px;&quot;&gt;&lt;br style=&quot;font-size: 12px;&quot;&gt;CompanyAutocomplete&lt;/font&gt;&lt;br style=&quot;font-size: 12px;&quot;&gt;&lt;/font&gt;" style="rounded=1;strokeColor=none;fillColor=#EEEEEE;align=center;arcSize=12;verticalAlign=top;whiteSpace=wrap;html=1;fontSize=12;fontColor=#000000;" vertex="1" parent="1">
+                    <mxGeometry x="599" y="32" width="126" height="70" as="geometry"/>
+                </mxCell>
+                <mxCell id="26" value="CompanyPossibleUrls" style="rounded=1;strokeColor=none;fillColor=#EEEEEE;align=center;arcSize=12;verticalAlign=middle;whiteSpace=wrap;html=1;fontSize=12;fontColor=#000000;" vertex="1" parent="1">
+                    <mxGeometry x="599" y="105" width="126" height="70" as="geometry"/>
+                </mxCell>
+                <mxCell id="27" value="&lt;span&gt;SageMaker Endpoint&lt;/span&gt;" style="rounded=1;strokeColor=none;fillColor=#EEEEEE;align=center;arcSize=12;verticalAlign=middle;whiteSpace=wrap;html=1;fontSize=12;fontColor=#000000;fontStyle=0" vertex="1" parent="1">
+                    <mxGeometry x="599" y="250" width="126" height="70" as="geometry"/>
+                </mxCell>
+                <mxCell id="28" value="Get_contacts" style="rounded=1;strokeColor=none;fillColor=#EEEEEE;align=center;arcSize=12;verticalAlign=middle;whiteSpace=wrap;html=1;fontSize=12;fontColor=#000000;" vertex="1" parent="1">
+                    <mxGeometry x="599" y="323" width="126" height="70" as="geometry"/>
+                </mxCell>
+                <mxCell id="29" value="AddUrlsClassifier&lt;span style=&quot;color: rgb(77 , 81 , 86) ; font-family: &amp;#34;arial&amp;#34; , sans-serif ; font-size: 14px ; text-align: left ; background-color: rgb(255 , 255 , 255)&quot;&gt;\&lt;span class=&quot;Apple-converted-space&quot;&gt;&amp;nbsp;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;Features" style="rounded=1;align=center;arcSize=12;verticalAlign=middle;whiteSpace=wrap;html=1;fontSize=12;fontColor=#000000;fillColor=#f5f5f5;strokeColor=#666666;" vertex="1" parent="1">
+                    <mxGeometry x="599" y="178" width="126" height="70" as="geometry"/>
+                </mxCell>
+                <mxCell id="30" value="Functions" style="html=1;shadow=0;dashed=0;shape=mxgraph.bootstrap.rrect;rSize=5;strokeColor=none;strokeWidth=1;fillColor=#0085FC;fontColor=#FFFFFF;whiteSpace=wrap;align=center;verticalAlign=middle;spacingLeft=0;fontStyle=0;fontSize=13;spacing=5;" vertex="1" parent="1">
+                    <mxGeometry x="601" width="123" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="31" value="Process" style="html=1;shadow=0;dashed=0;shape=mxgraph.bootstrap.rrect;rSize=5;strokeColor=none;strokeWidth=1;fillColor=#0085FC;fontColor=#FFFFFF;whiteSpace=wrap;align=center;verticalAlign=middle;spacingLeft=0;fontStyle=0;fontSize=13;spacing=5;" vertex="1" parent="1">
+                    <mxGeometry x="377" width="223" height="30" as="geometry"/>
+                </mxCell>
+            </root>
+        </mxGraphModel>
+    </diagram>
+</mxfile>

@@ -7,25 +7,100 @@ With many applications in B2B lead generation and B2B data enrichment, it provid
 
 
 
-![Easy Prospects demo](./Media/website.jpg)]
-
+![Easy Prospects demo](./Media/website.jpg)
 ## Table of content
 
 - [Installation](#installation)
-    - [TER](#typo3-extension-repository)
-    - [Composer](#composer)
-- [TYPO3 setup](#typo3-setup)
-    - [Extension](#extension)
-    - [Database](#database)
-- [Page setup](#page-setup)
-    - [Upload the page tree file](#upload-the-page-tree-file)
-    - [Go to the import view](#go-to-the-import-view)
-    - [Import the page tree](#import-the-page-tree)
-    - [SEO-friendly URLs](#seo-friendly-urls)
+- [Third Party API's](#thirs-party-apis)
+    - [SIREN API](#api-siren)
+    - [Bing Search API](#bing-search)
+- [Data Flow](#data-flow)
+- [Machine Learning Process](#ml-process)
+    - [Feature Engineering](#Feature-engineering)
+    - [Model Selection](#model-selection)
+    - [Training](#training)
+    - [Validation](#validation)
+    - [Production](#production)
+- [Data Extraction](#data-extraction)    
+- [AWS deployment](#AWS-deployment)
 - [License](#license)
 - [Links](#links)
 
 ## Installation
+You will find the entire code of the application in this directory, ready for AWS deployement. Check also the [AWS deployment](#AWS-deployment) section for more details. Feel free to send me an email if you have any question.
+
+## Third Parties API's
+### SIREN API
+In 2018, the French administration INSEE opened the access to registered companies data through an API. We will be using two endpoints of this API : 
+
+* V1 Endpoint with key word search: `https://entreprise.data.gouv.fr/api/sirene/v1/full_text/key_word`.
+* V3 Endpoint with key word search: `https://entreprise.data.gouv.fr/api/sirene/v3/etablissements/?siren=SIREN`.
+This endpoint makes an exact with the unique identification number  `SIREN` and returns the related company data.
+
+The data provided by the API (V1 and V3 endpoints) for each each company (json format) :
+* Unique identification number
+* Company name
+* Adress
+* Activity description code (over 732 categories)
+* Activity description in natural language (french)
+
+⚠️ Public version imited to 7 requests / second. You can install your own version of the API [here](https://entreprise.data.gouv.fr/api_doc/sirene) if you need more requests. 
+
+
+### Bing Search API
+Official Bing Search API that returns search results for a specific `query` (json format) : 
+* Url
+* Url rank
+* Language
+* IsFamiliyFriendly
+* Meta description in natural language
+
+⚠️ It costs around 3-5 usd / 1000 requests. If you think about scraping search engines, it may work with stability and scalability issues. After spending some time on it, i would recommand to use Bing API instead. 
+
+## Data Flow
+
+![Data Flow](./Media/dataflow.png)
+
+## Machine Learning Process
+
+## Data Extraction
+
+## AWS deployment
+
+## License
+
+The Easy Prospects API is licensed under the terms of the GPL Open Source
+license and is available for free.
+
+## Links
+
+* [SIREN API](https://entreprise.data.gouv.fr/api_doc/sirene)
+* [Bing Search API](https://www.microsoft.com/en-us/bing/apis/bing-web-search-api)
+* [FastText](https://fasttext.cc)
+* [FastText As A Service](https://github.com/nielsen-oss/fasttext-serving)
+* [Source code](https://github.com/mehdibennouna17/AI-NLP-EasyProspects)
+
+
+
+
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 This document is for the latest Aimeos TYPO3 **21.10 release and later**.
 
@@ -186,15 +261,3 @@ Now you have a new page "Shop" in your page tree including all required sub-page
 TYPO3 9.5 and later can create SEO friendly URLs if you add the rules to the site config:
 [https://aimeos.org/docs/latest/typo3/setup/#seo-urls](https://aimeos.org/docs/latest/typo3/setup/#seo-urls)
 
-## License
-
-The Aimeos TYPO3 extension is licensed under the terms of the GPL Open Source
-license and is available for free.
-
-## Links
-
-* [Web site](https://aimeos.org/integrations/typo3-shop-extension/)
-* [Documentation](https://aimeos.org/docs/TYPO3)
-* [Forum](https://aimeos.org/help/typo3-extension-f16/)
-* [Issue tracker](https://github.com/aimeos/aimeos-typo3/issues)
-* [Source code](https://github.com/aimeos/aimeos-typo3)
