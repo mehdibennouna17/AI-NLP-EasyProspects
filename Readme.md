@@ -124,14 +124,53 @@ def max_len_string_match(bing_result_dict):
 * Feature#6 : binary check if the company base city is included in the url (1 if the city is a substring of the url, 0 else) 
 * Feature#7 : binary check if the company base department is included in the url (1 if the department number is a substring of the url, 0 else) 
 * Feature#8 : cosine similarity score between the activity description sentence embedding and the meta description of the search result website
-Example : 
+
+**Illustration :** 
+
 company_name : La Casa di Roma
+
 activity_description : Italian restaurant
+
 meta_description_1 : Get your hot pizza in less than 1 minute
+
 meta_description_2 : Visit Roma next week-end
 
 ![Cosine similarity](./Media/cosinsim.jpg)
 
+The sentence embedding is computed simply by averaging the word embedding of each word weighted by TF-IDF with some minor text pre-processing.
+`AddUrlClassifierFeatures/utils.py`
+
+```python
+def sentence_embedding(sent, tf=True):
+    sent = sent.lower()
+    batch = sent.split()
+    batch = [re.sub("[^a-zäåçéñöüáàâãèêëíìîïóòôõú'ùûæƒœÿ]", "", u)
+             for u in batch]
+    batch = [u for u in batch if word_frequency(u, 'fr') > 0 and len(u) > 2]
+    freq = [word_frequency(u, 'fr') for u in batch]
+    if len(batch) > 0:
+        channel = grpc.insecure_channel(settings.FASTTEXT_URL)
+        stub = spb2_grpc.FastTextStub(channel)
+        request = spb2.VectorsRequest(
+            model_name="cc.fr.300", batch=batch
+        )
+        response = stub.GetWordsVectors(request)
+        embeddings = list()
+        for i in range(len(batch)):
+            a = str(response.vectors[i])
+            a = a.replace('element: ', '')
+            a = a.splitlines()
+            if tf:
+                a = [float(u)/freq[i] for u in a]
+            else:
+                a = [float(u) for u in a]
+            embeddings.append(a)
+        embeddings = np.array(embeddings)
+        sent_embed = np.mean(embeddings, axis=0)
+    else:
+        sent_embed = np.zeros(300)   
+    return sent_embed
+```
 ### Model Selection
 ### Training
 ### Validation
