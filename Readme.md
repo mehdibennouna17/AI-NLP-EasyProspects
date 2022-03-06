@@ -132,12 +132,12 @@ company_name : La Casa di Roma
 activity_description : Italian restaurant
 
 <br>
-candidate_url1 : https://lacasadiromapizza.fr
+candidate_url1 : lacasadiromapizza.fr
 
 meta_description_1 : Get your hot pizza in less than 1 minute
 
 <br>
-candidate_url2 : https://bestromatravel.fr
+candidate_url2 : bestromatravel.fr
 
 meta_description_2 : Visit Roma next week-end 
 
