@@ -105,6 +105,33 @@ def max_rs_n_gram_matching_dom(bing_result_dict):
     score = (math.exp(max_n) - 1)*(1- math.exp(-n_rs)) # <= Feature#4
     return score
 ```
+* Feature#5 : metric score related to the longest substring in common in company name & url
+
+`AddUrlClassifierFeatures/features_builder.py`
+```python
+def max_len_string_match(bing_result_dict):
+    rs = bing_result_dict['company_name'].lower()
+    url = bing_result_dict['url'].lower()
+    n = 0
+    dom = bing_result_dict['domain'].lower()
+    n = len(utils.longestSubstringFinder(dom, rs))
+    if min(len(dom), len(rs)) > 0:
+        score = n / min(len(dom), len(rs)) #<= Feature#5
+    else:
+        score = 0
+    return score
+```
+* Feature#6 : binary check if the company base city is included in the url (1 if the city is a substring of the url, 0 else) 
+* Feature#7 : binary check if the company base department is included in the url (1 if the department number is a substring of the url, 0 else) 
+* Feature#8 : cosine similarity score between the activity description sentence embedding and the meta description of the search result website
+Example : 
+company_name : La Casa di Roma
+activity_description : Italian restaurant
+meta_description_1 : Get your hot pizza in less than 1 minute
+meta_description_2 : Visit Roma next week-end
+
+![Cosine similarity](./Media/cosinsim.jpg)
+
 ### Model Selection
 ### Training
 ### Validation
