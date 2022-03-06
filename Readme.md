@@ -139,6 +139,7 @@ meta_description_2 : Visit Roma next week-end
 ![Cosine similarity](./Media/cosinsim.jpg)
 
 The sentence embedding is computed simply by averaging the word embedding of each word weighted by TF-IDF with some minor text pre-processing.
+
 `AddUrlClassifierFeatures/utils.py`
 
 ```python
