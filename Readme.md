@@ -58,10 +58,57 @@ Official Bing Search API that returns search results for a specific `query` (jso
 ⚠️ It costs around 3-5 usd / 1000 requests. If you think about scraping search engines, it may work with stability and scalability issues. After spending some time on it, i would recommand to use Bing API instead. 
 
 ## Data Flow
+<br>
 
-![Data Flow](./Media/dataflow.png)
+![Data Flow](./Media/dataflowchart.png)
 
-## Machine Learning Process
+## Machine Learning Model
+### Feature Engineering
+We build a 8 dimensions vector for each search result in order to feed a non-linear binary classifier. We need to build the vector with metrics related to both search result and company.
+* Feature#1 : search rank
+* Feature#2 : language (1 for french, 0 for any other language)
+* Feature#3 : inverse normalized Levenshtein distance (edit distance) between the search url and the name of the company
+
+`AddUrlClassifierFeatures/utils.py`
+```python
+def lev_score_url_with_txt(url, txt):
+    url = url.lower()
+    txt = txt.lower()
+    dom = dom_name(url)
+    dom = re.sub("[^0-9a-z]", '', dom)
+    txt = re.sub("[^0-9a-z]", '', txt)
+    score = 0
+    lev_dist = int()
+    m = min(len(dom), len(txt)) 
+    lev_dist = LD(txt, dom)
+    if m > 0:
+        score = 1 - lev_dist/m # <= Feature#3
+    return score
+```
+* Feature#4 :  metric score related to the longest ngram in common in company name & url
+
+`AddUrlClassifierFeatures/features_builder.py`
+```python
+def max_rs_n_gram_matching_dom(bing_result_dict):
+    n = 0
+    rs = bing_result_dict['company_name'].lower()
+    n_rs = len(rs.split())
+    url = bing_result_dict['url']
+    n_grams = utils.get_all_n_grams(rs)
+    dom = bing_result_dict['domain'].lower()
+    dom = re.sub("[^0-9a-z]", "", dom)
+    max_n = 0
+    for n_gram in n_grams:
+        n = len(n_gram)
+        if ' '.join(n_gram) in dom:
+           max_n = max(n, max_n)
+    score = (math.exp(max_n) - 1)*(1- math.exp(-n_rs)) # <= Feature#4
+    return score
+```
+### Model Selection
+### Training
+### Validation
+### Production
 
 ## Data Extraction
 
