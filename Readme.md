@@ -218,7 +218,7 @@ def sentence_embedding(sent, tf=True):
 
 ### Model selection
 
-A PCA on our features shows that the data are highly not linearly separable. Sagemaker AutoML for model selection and tuning confirmed with XGBoost model selected with the best F1 score.
+A fast PCA on our features shows that the data is likely to be not linearly separable. Sagemaker AutoML for model selection and tuning confirmed with XGBoost model selected with the best F1 score.
 
 ![Dataviz](./Media/dataviz.jpg)
 <a id="training"></a>
