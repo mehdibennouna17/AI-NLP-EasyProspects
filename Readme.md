@@ -1,4 +1,4 @@
-# Decentralized French Companies Register with AI/NLP
+# Decentralized French Companies Register with ML/NLP
 
 Easy Prospects is a CompanyToData API that returns publicly available data of a company. It takes as inputs the name of the company and a description of the activity in natural language and returns the website url and contact details (phone numbers, public emails, social networks) extracted from the website.
 
@@ -23,12 +23,13 @@ With many applications in B2B lead generation and B2B data enrichment, it provid
 - [AWS deployment](#AWS-deployment)
 - [License](#license)
 - [Links](#links)
+- [Contact](mailto:mehdibennouna17@gmail.com)
 
 <a id="installation"></a>
 
 ## Installation
 
-You will find the entire code of the application in this directory, ready for AWS deployment. Check also the [AWS deployment](#AWS-deployment) section for more details. Feel free to send me an email if you have any question.
+You will find the entire code of the application in this directory, ready for AWS deployment. Check also the [AWS deployment](#AWS-deployment) section for more details. Feel free to [contact](mailto:mehdibennouna17@gmail.com) me if you have any question.
 
 <a id="third-party-api"></a>
 
@@ -159,7 +160,7 @@ def max_len_string_match(bing_result_dict):
 
 **Illustration :**
 
-company_name : La Casa di Roma
+company_name : La Casa di Roma 
 
 activity_description : Italian restaurant
 
@@ -253,7 +254,7 @@ Confusion Matrix:
 
 `https://github.com/mehdibennouna17/AI-NLP-EasyProspects/blob/main/SagemakerModel/bing-classifier-automl.ipynb`
 
-Before creating the endpoint, we modify some environnement variables in order to predict both the label class and probability.
+Before creating the endpoint, we modify environnement variables in order to predict both the label class and probability.
 
 ```python
 timestamp_suffix = strftime("%d-%H-%M-%S", gmtime())
@@ -298,17 +299,17 @@ create_endpoint_response = sm.create_endpoint(EndpointName=ep_name, EndpointConf
 
 I will not detail here the extraction methods developed. Feel free to check the code in the corresponding files :
 
-EMAIL EXTRACTOR : `Get_contacts/email_classifier_mod_light.py`
+Email extractor : `Get_contacts/email_classifier_mod_light.py`
 
-PHONE NUMBERS EXTRACTOR : `Get_contacts/tel_classifier.py`
+Phone numbers extractor: `Get_contacts/tel_classifier.py`
 
-LINKEDIN EXTRACTOR : `Get_contacts/linkedin_utils.py`
+Linkedin extractor: `Get_contacts/linkedin_utils.py`
 
-FACEBOOK EXTRACTOR : `Get_contacts/facebook_utils.py`
+Facebook extractor : `Get_contacts/facebook_utils.py`
 
-INSTAGRAM EXTRACTOR : `Get_contacts/instagram_utils.py`
+Instagram extractor : `Get_contacts/instagram_utils.py`
 
-YOUTUBE EXTRACTOR : `Get_contacts/youtube_utils.py`
+Youtube extractor : `Get_contacts/youtube_utils.py`
 
 <a id="AWS-deployment"></a>
 
