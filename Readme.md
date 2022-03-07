@@ -182,7 +182,7 @@ def sentence_embedding(sent, tf=True):
     return sent_embed
 ```
 ### ML Model
-A PCA on our features shows that the data are highly not linearly seperable. Sagemaker AutoML for model selection and tuning confirmed with XGBoost model selected with the best accuracy. 
+A PCA on our features shows that the data are highly not linearly seperable. Sagemaker AutoML for model selection and tuning confirmed with XGBoost model selected with the best F1 score. 
 ![Dataviz](./Media/dataviz.jpg)
 ### Training
 
@@ -195,7 +195,7 @@ bing-automl24-16-14-47mGiu2zG1Ie-014-adb23de8 {'MetricName': 'validation:f1_bina
 
 
 ### Validation
-Validation gives an F1-score 90.4%   :smile:🏆
+Validation gives an F1-score of 90.4%   :smile:🏆
 ```
 Accuracy: 0.9802603947921041
 Precision: 0.9024390243902439
@@ -245,9 +245,25 @@ ep_config = sm.create_endpoint_config(
 ep_name = best_candidate_name + timestamp_suffix + "-ep"
 create_endpoint_response = sm.create_endpoint(EndpointName=ep_name, EndpointConfigName=epc_name)
 ## Data Extraction
+I will not detail here the extraction methods developped. Feel free to check the code in the specific files : 
+
+EMAIL EXTRACTOR : `Get_contacts/email_classifier_mod_light.py`
+
+PHONE NUMBERS EXTRACTOR : `Get_contacts/tel_classifier.py`
+
+LINKEDIN EXTRACTOR : `Get_contacts/linkedin_utils.py`
+
+FACEBOOK EXTRACTOR : `Get_contacts/facebook_utils.py`
+
+INSTAGRAM EXTRACTOR : `Get_contacts/instagram_utils.py`
+
+YOUTUBE EXTRACTOR : `Get_contacts/youtube_utils.py`
+
 
 ## AWS deployment
+Here is a possible serverless architecture on AWS : 
 
+![AWS](./Media/aws.jpg)
 ## License
 
 The Easy Prospects API is licensed under the terms of the GPL Open Source
