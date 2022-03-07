@@ -17,7 +17,7 @@ With many applications in B2B lead generation and B2B data enrichment, it provid
 - [Data Flow](#data-flow)
 - [Machine Learning Process](#ml-process)
     - [Feature Engineering](#Feature-engineering)
-    - [Model Selection](#model-selection)
+    - [ML Model](#ml-model)
     - [Training](#training)
     - [Validation](#validation)
     - [Production](#production)
@@ -181,11 +181,69 @@ def sentence_embedding(sent, tf=True):
         sent_embed = np.zeros(300)   
     return sent_embed
 ```
-### Model Selection
+### ML Model
+A PCA on our features shows that the data are highly not linearly seperable. Sagemaker AutoML for model selection and tuning confirmed with XGBoost model selected with the best accuracy. 
+![Dataviz](./Media/dataviz.jpg)
 ### Training
-### Validation
-### Production
 
+`https://github.com/mehdibennouna17/AI-NLP-EasyProspects/blob/main/SagemakerModel/bing-classifier-automl.ipynb`
+
+```
+bing-automl24-16-14-47mGiu2zG1Ie-014-adb23de8 {'MetricName': 'validation:f1_binary', 'Value': 0.8663600087165833}
+659782779980.dkr.ecr.eu-west-3.amazonaws.com/sagemaker-xgboost:1.2-2-cpu-py3
+```
+
+
+### Validation
+Validation gives an F1-score 90.4%   :smile:🏆
+```
+Accuracy: 0.9802603947921041
+Precision: 0.9024390243902439
+Recall: 0.9061224489795918
+F1: 0.9042769857433809
+Confusion Matrix: 
+[[2112   24]
+ [  23  222]]
+ ```
+
+### Production
+`https://github.com/mehdibennouna17/AI-NLP-EasyProspects/blob/main/SagemakerModel/bing-classifier-automl.ipynb`
+
+Before creating the endpoint, we modify some environement variables in order to predict both the label and the probability of each label in order to be able to set a specific classification probability threshold. 
+
+```python
+timestamp_suffix = strftime("%d-%H-%M-%S", gmtime())
+model_name = best_candidate_name + timestamp_suffix + "-model"
+Containers=best_candidate["InferenceContainers"]
+Containers[1]['Environment'].update({'SAGEMAKER_INFERENCE_OUTPUT': 'predicted_label, probability'})
+Containers[2]['Environment'].update({'SAGEMAKER_INFERENCE_INPUT': 'predicted_label, probability'})
+Containers[2]['Environment'].update({'SAGEMAKER_INFERENCE_OUTPUT': 'predicted_label, probability'})
+
+```
+Then, we create an endpoint with `ml.t2.medium` EC2 type.
+
+```python
+model_arn = sm.create_model(
+    Containers=Containers,
+    ModelName=model_name,
+    ExecutionRoleArn=role
+)
+
+epc_name = best_candidate_name + timestamp_suffix + "-epc"
+ep_config = sm.create_endpoint_config(
+    EndpointConfigName=epc_name,
+    ProductionVariants=[
+        {
+            "InstanceType": "ml.t2.medium",
+            "InitialInstanceCount": 1,
+            "ModelName": model_name,
+            "VariantName": "main",
+        }
+    ],
+)
+```
+ep_name = best_candidate_name + timestamp_suffix + "-ep"
+create_endpoint_response = sm.create_endpoint(EndpointName=ep_name, EndpointConfigName=epc_name)
 ## Data Extraction
 
 ## AWS deployment
@@ -202,185 +260,3 @@ license and is available for free.
 * [FastText](https://fasttext.cc)
 * [FastText As A Service](https://github.com/nielsen-oss/fasttext-serving)
 * [Source code](https://github.com/mehdibennouna17/AI-NLP-EasyProspects)
-
-
-
-
-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-This document is for the latest Aimeos TYPO3 **21.10 release and later**.
-
-- LTS release: 21.10 (TYPO3 10/11 LTS)
-
-### Composer
-
-**Note:** composer 2.1+ is required!
-
-The latest version can be installed via composer too. This is especially useful if you want to create new TYPO3 installations automatically or play with the latest code. You need to install the composer package first if it isn't already available:
-
-`php -r "readfile('https://getcomposer.org/installer');" | php -- --filename=composer`
-
-In order to tell install TYPO3, you have to execute
-
-`composer create-project typo3/cms-base-distribution myshop`
-
-This will install TYPO3 into the `./myshop/` directory.
-
-Then, change to the `./mshop/` directory and install the Aimeos extension for TYPO3 with:
-
-`composer req aimeos/aimeos-typo3:~21.10`
-
-This will install stable TYPO3 version and the latest Aimeos TYPO3 extension. If you want a more or less working installation out of the box for new installations, you should install the Bootstrap package too:
-
-`composer req bk2k/bootstrap-package`
-
-### TER extension
-
-If you want to install Aimeos into your existing TYPO3 installation, the [Aimeos extension from the TER](https://typo3.org/extensions/repository/view/aimeos) is recommended. You can download and install it directly from the Extension Manager of your TYPO3 instance.
-
-For new TYPO3 installations, there's a 1-click [Aimeos distribution](https://typo3.org/extensions/repository/view/aimeos_dist) available too. Choose the Aimeos distribution from the list of available distributions in the Extension Manager and you will get a completely set up shop system including demo data for a quick start.
-
-## TYPO3 setup
-
-Setup TYPO3 as normal by creating a `FIRST_INSTALL` file in the `./public` directory:
-
-```bash
-touch public/FIRST_INSTALL
-```
-
-Open the URL of your installation in the browser and follow the steps in the TYPO3 setup scripts.
-
-### Database setup
-
-If you use MySQL < 5.7.8, you have to use `utf8` and `utf8_unicode_ci` instead because those MySQL versions can't handle the long indexes created by `utf8mb4` (up to four bytes per character) and you will get errors like
-
-```
-1071 Specified key was too long; max key length is 767 bytes
-```
-
-To avoid that, change your database settings in your `./typo3conf/LocalConfiguration.php` to:
-
-```
-'DB' => [
-    'Connections' => [
-        'Default' => [
-            'tableoptions' => [
-                'charset' => 'utf8',
-                'collate' => 'utf8_unicode_ci',
-            ],
-            // ...
-        ],
-    ],
-],
-```
-
-### Security
-
-Since **TYPO3 9.5.14+** implements **SameSite cookie handling** and restricts when browsers send cookies to your site. This is a problem when customers are redirected from external payment provider domain. Then, there's no session available on the confirmation page. To circumvent that problem, you need to set the configuration option `cookieSameSite` to `none` in your `./typo3conf/LocalConfiguration.php`:
-
-```
-    'FE' => [
-        'cookieSameSite' => 'none'
-    ]
-```
-
-### Composer
-
-#### TYPO3 11
-
-When using TYPO3 11, you have to run these commands from your installation directory:
-
-```bash
-php ./vendor/bin/typo3 extension:setup
-php ./vendor/bin/typo3 aimeos:setup --option=setup/default/demo:1
-```
-
-If you don't want to add the Aimeos demo data, you should remove `--option=setup/default/demo:1` from the Aimeos setup command.
-
-#### TYPO3 10
-
-For TYPO3 10, these commands are required:
-
-```bash
-php ./vendor/bin/typo3 extension:activate scheduler
-php ./vendor/bin/typo3 extension:activate aimeos
-```
-
-### TER Extension
-
-* Log into the TYPO3 back end
-* Click on ''Admin Tools::Extension Manager'' in the left navigation
-* Click the icon with the little plus sign left from the Aimeos list entry (looks like a lego brick)
-
-![Install Aimeos TYPO3 extension](https://aimeos.org/docs/images/Aimeos-typo3-extmngr-install.png)
-
-Afterwards, you have to execute the update script of the extension to create the required database structure:
-
-![Execute update script](https://aimeos.org/docs/images/Aimeos-typo3-extmngr-update-7.x.png)
-
-## Site setup
-
-TYPO3 10+ requires a site configuration which you have to add in "Site Management" > "Sites" available in the left navigation.
-
-## Page setup
-
-The page setup for an Aimeos web shop is easy if you import the example page tree for TYPO3 10/11:
-
-* [21.10+ page tree](https://aimeos.org/fileadmin/download/Aimeos-pages_21.10.t3d) only
-
-**Note:** The Aimeos layout expects [Bootstrap](https://getbootstrap.com) providing the grid layout!
-
-### Go to the import view
-
-* In Web::Page, root page (the one with the globe)
-* Right click on the globe
-* Move the cursor to "Branch actions"
-* In the sub-menu, click on "Import from .t3d"
-
-![Go to the import view](https://aimeos.org/docs/images/Aimeos-typo3-pages-menu.png)
-
-### Upload the page tree file
-
-* In the page import dialog
-* Select the "Upload" tab (2nd one)
-* Click on the "Select" dialog
-* Choose the file you've downloaded
-* Press the "Upload files" button
-
-![Upload the page tree file](https://aimeos.org/docs/images/Aimeos-typo3-pages-upload.png)
-
-### Import the page tree
-
-* In Import / Export view
-* Select the uploaded file from the drop-down menu
-* Click on the "Preview" button
-* The pages that will be imported are shown below
-* Click on the "Import" button that has appeared
-* Confirm to import the pages
-
-![Import the uploaded page tree file](https://aimeos.org/docs/images/Aimeos-typo3-pages-import.png)
-
-Now you have a new page "Shop" in your page tree including all required sub-pages.
-
-### SEO-friendly URLs
-
-TYPO3 9.5 and later can create SEO friendly URLs if you add the rules to the site config:
-[https://aimeos.org/docs/latest/typo3/setup/#seo-urls](https://aimeos.org/docs/latest/typo3/setup/#seo-urls)
-
