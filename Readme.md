@@ -23,13 +23,12 @@ With many applications in B2B lead generation and B2B data enrichment, it provid
 - [AWS deployment](#AWS-deployment)
 - [License](#license)
 - [Links](#links)
-- [Contact](mailto:mehdibennouna17@gmail.com)
 
 <a id="installation"></a>
 
 ## Installation
 
-You will find the entire code of the application in this directory, ready for AWS deployment. Check also the [AWS deployment](#AWS-deployment) section for more details. Feel free to [contact](mailto:mehdibennouna17@gmail.com) me if you have any question.
+You will find the entire code of the application in this directory, ready for AWS deployment. Check also the [AWS deployment](#AWS-deployment) section for more details.
 
 <a id="third-party-api"></a>
 
@@ -329,7 +328,6 @@ license and is available for free.
 <a id="links"></a>
 
 ## Links
-- [Contact](mailto:mehdibennouna17@gmail.com)
 - [SIREN API](https://entreprise.data.gouv.fr/api_doc/sirene)
 - [Bing Search API](https://www.microsoft.com/en-us/bing/apis/bing-web-search-api)
 - [FastText](https://fasttext.cc)
